@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Redeem Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-image: url('redeembg.png'); /* Replace with your actual image path */
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.1); /* Transparent glass effect */
+            padding: 30px;
+            width: 60%;
+            max-width: 300px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.3);
+            border-radius: 15px;
+        }
+
+        .info-box h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .info-box p {
+            font-size: 18px;
+            margin: 10px 0;
+            color: #444;
+        }
+
+        .highlight {
+            font-weight: bold;
+            color: #040404;
+        }
+
+        .back-btn {
+            margin-top: 25px;
+            background-color: #007bff;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .back-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="info-box">
+        <h2>Redeem Summary</h2>
+        <p><strong>Detected Object:</strong> <span class="highlight" id="item"></span></p>
+        <p><strong>Estimated Weight:</strong> <span class="highlight" id="weight"></span> kg</p>
+        <p><strong>Points Earned:</strong> <span class="highlight" id="points"></span></p>
+
+        <button class="back-btn" onclick="goBack()">Back to Machine</button>
+    </div>
+
+    <script>
+        // Get stored data
+        document.getElementById("item").innerText = localStorage.getItem("detectedItem") || "N/A";
+        document.getElementById("weight").innerText = localStorage.getItem("estimatedWeight") || "0.00";
+        document.getElementById("points").innerText = localStorage.getItem("amount") || "0.00";
+
+        function goBack() {
+            window.location.href = "scan.html"; // or your scan/machine page
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plastic Waste Awareness</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #489de2;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            max-height: 50px;
+            margin-left: 20px;
+        }
+        .nav {
+            margin-right: 20px;
+        }
+        #page-header{
+            background-image: url("home.png");
+            width: 50vh;
+            height: 50vh;
+            object-fit: cover;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            flex-direction: column;
+            margin-left: 48px;
+            padding: 50px;
+        }
+        .nav button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            margin-left: 15px;
+            cursor: pointer;
+        }
+        .nav button:hover {
+            text-decoration: underline;
+        }
+        #page-header {
+        width: 99%;
+        height: 100vh;
+        padding: 10px;
+        margin-left: 0;
+    }
+
+        .marquee-container {
+            background-color: #A0C35A;
+            color: black;
+            padding: 5px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+        }
+        .text-section {
+            flex: 1;
+            padding-right: 50px;
+            padding-left: 50px;
+            text-align: left;
+        }
+        .infographic {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        .infographic img {
+            width: 50%;
+            height: 15%;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .highlight-button {
+            background-color: orange;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .video-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .video-container video {
+            width: 80%;
+            max-width: 800px;
+            height: auto;
+        }
+        .footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #489de2;
+            color: white;
+            text-align: center;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const video = document.getElementById("recycleVideo");
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        video.play();
+                    } else {
+                        video.pause();
+                    }
+                });
+            }, { threshold: 0.5 });
+            observer.observe(video);
+        });
+    </script>
+</head>
+<body>
+    <div class="header">
+        <img src="logo.jpg" alt="Logo" class="logo">
+        <div class="nav">
+            <button onclick="location.href='home.html'">Home</button>
+            <button onclick="location.href='aboutpage.html'">About</button>
+            <button onclick="location.href='help.html'">Help</button>
+        </div>
+    </div>
+        
+    <div class="marquee-container">
+        <marquee>"Reduce, Reuse, Recycle! Keep our planet clean!" &bull; "Say no to plastic, yes to sustainability!" &bull; "A cleaner world starts with you!"</marquee>
+    </div>
+    <section id="page-header">
+        <h1>Welcome to the Virtual Reverse Vending Machine</h1>
+        <p>Recycle plastic waste and earn rewards while saving the environment. Click below to start recycling!</p>
+    </section>
+
+
+
+    <div class="content">
+        <div class="text-section">
+            <h2>Plastic Waste Awareness</h2>
+            <p>
+                Plastic pollution has reached a critical level, with over 400 million tons of plastic produced annually, 
+                half of which is single-use. Only 9% of plastic waste is recycled, while the majority ends up in landfills, 
+                oceans, or the environment. Each year, at least 14 million tons of plastic enter the ocean, contributing 
+                to massive pollution, including the Great Pacific Garbage Patch. Microplastics are now found everywhere—
+                from deep-sea trenches to human bodies—posing potential health risks.
+            </p>
+        </div>
+        <div class="infographic">
+            <img src="homeimage.jpg" alt="Recycling Process">
+        </div>
+    </div>
+    <div class="button-container">
+        <button class="highlight-button" onclick="location.href='login.html'">Start Recycle</button>
+    </div>
+    
+    <div class="video-container">
+        <video id="recycleVideo" width="600" muted>
+            <source src="homevideo.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div class="footer">
+        &copy; 2025 Plastic Awareness Initiative
+    </div>
+</body>
+</html>

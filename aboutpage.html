@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is VRVM?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('images/aboutbg.jpg') no-repeat center center/cover;
+        }
+        .header {
+            background-color: rgba(72, 157, 226, 0.9);
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            max-height: 50px;
+            margin-left: 20px;
+        }
+        .nav {
+            margin-right: 20px;
+        }
+        .nav button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            margin-left: 15px;
+            cursor: pointer;
+        }
+        .nav button:hover {
+            text-decoration: underline;
+        }
+        .container {
+            margin: 50px auto;
+            width: 80%;
+            max-width: 1000px;
+            background: linear-gradient(to bottom, #bde5aa, #ffffff); /* Gradient Effect */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .content {
+            width: 55%;
+            padding-right: 20px;
+        }
+        .image-container {
+            width: 40%;
+            text-align: center;
+        }
+        .image-container img {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        h2 {
+            color: #333;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        .footer {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: rgba(72, 157, 226, 0.9);
+            color: white;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="images/logo.jpg" alt="Logo" class="logo">
+        <div class="nav">
+            <button onclick="location.href='homepage.html'">Home</button>
+            <button onclick="location.href='about.html'">About</button>
+            <button onclick="location.href='help.html'">Help</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content">
+            <h2>What is VRVM?</h2>
+            <p>
+                The Virtual Reverse Vending Machine (VRVM) is a digital alternative to traditional reverse vending machines (RVMs), 
+                designed to encourage recycling through mobile apps and digital tracking. Unlike traditional RVMs—which accept used 
+                beverage containers and provide rewards—VRVMs leverage mobile apps, QR codes, and digital tracking to encourage recycling.
+            </p>
+
+            <h2>Why Use VRVM?</h2>
+            <ul>
+                <li>Encourages sustainable waste management.</li>
+                <li>Earn rewards while keeping the planet clean.</li>
+                <li>Seamless and user-friendly experience.</li>
+            </ul>
+        </div>
+
+        <div class="image-container">
+            <img src="images/aboutimg.jpg" alt="VRVM Machine">
+        </div>
+    </div>
+
+    <div class="footer">
+        &copy; 2025 Plastic Awareness Initiative
+    </div>
+</body>
+</html>

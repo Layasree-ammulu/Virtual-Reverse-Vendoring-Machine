@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('loginimg.jpg'); /* Ensure this path is correct */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .login-container {
+            background: rgba(255, 255, 255, 0.1); /* Transparent glass effect */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+            text-align: center;
+            width: 350px;
+            backdrop-filter: blur(10px); /* Glass blur effect */
+        }
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: white;
+            font-weight: bold;
+            font-size: 24px;
+        }
+        .input-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: white;
+            font-size: 14px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 30px; /* Oval shape */
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 16px;
+            outline: none;
+            text-align: center;
+        }
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(90deg, #28a745, #218838);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 30px; /* Oval button */
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .login-btn:hover {
+            background: linear-gradient(90deg, #218838, #1e7e34);
+        }
+        .register-link {
+            margin-top: 15px;
+            display: block;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .register-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h2>Login</h2>
+        <form action="login.jsp" method="post">
+            <div class="input-group">
+                <input type="text" id="username" name="username" placeholder="Username" required>
+            </div>
+            <div class="input-group">
+                <input type="password" id="password" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit" class="login-btn">Login</button>
+        </form>
+        <a href="register.html" class="register-link">New here? Create an account</a>
+    </div>
+
+</body>
+</html>

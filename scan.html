@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plastic Object Detection</title>
+    <style>
+        body {
+            background-image: url('scanbg.png'); /* Replace with actual background */
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: linear-gradient(to bottom, #aff745, #ddfcd0);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 60%;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+        .btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        .btn:hover {
+            background-color: #218838;
+        }
+        .camera-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 15px;
+            height: 300px;
+        }
+        video, img {
+            width: 300px;
+            height: 300px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        #label-container {
+            margin-top: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+        #redeem-button {
+            display: none;
+            margin-top: 20px;
+            background-color: #ff6600;
+            padding: 12px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            text-align: center;
+        }
+        #redeem-button:hover {
+            background-color: #cc5500;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Plastic Object Detection</h1>
+        <button class="btn" onclick="startCamera()">Start Camera</button>
+        <button class="btn" onclick="captureImage()">Capture Image</button>
+        <button class="btn" onclick="analyze()">Analyze & Identify</button>
+        
+        <div class="camera-container">
+            <video id="webcam" autoplay></video>
+            <div id="image-container"></div>
+        </div>
+
+        <div id="label-container"></div>
+
+        <div class="button-container">
+            <button id="redeem-button" onclick="goToRedeem()">Redeem</button>
+        </div>
+    </div>
+
+    <!-- TensorFlow and Teachable Machine -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+
+    <script>
+        const MODEL_PATH = "/VRVM/my_model/";
+        let model, videoStream, video, imageElement;
+
+        async function loadModel() {
+            try {
+                const modelURL = MODEL_PATH + "model.json";
+                const metadataURL = MODEL_PATH + "metadata.json";
+
+                console.log("Loading model from:", modelURL);
+                model = await tmImage.load(modelURL, metadataURL);
+                console.log("Model loaded successfully!");
+            } catch (error) {
+                console.error("Error loading model:", error);
+                alert("Failed to load the model. Please check the file path.");
+            }
+        }
+
+        // Load model on page load
+        loadModel();
+
+        function startCamera() {
+            video = document.getElementById("webcam");
+            document.getElementById("image-container").innerHTML = ""; // Remove captured image
+            video.style.display = "block"; // Show video again
+
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
+                .then(stream => {
+                    videoStream = stream;
+                    video.srcObject = stream;
+                })
+                .catch(error => {
+                    console.error("Error accessing camera:", error);
+                    alert("Could not access camera. Please allow camera access.");
+                });
+        }
+
+        function captureImage() {
+            if (!video || !video.srcObject) {
+                alert("Please start the camera first.");
+                return;
+            }
+
+            const canvas = document.createElement("canvas");
+            canvas.width = 300;
+            canvas.height = 300;
+            const ctx = canvas.getContext("2d");
+
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            // Stop camera and hide video
+            if (videoStream) {
+                videoStream.getTracks().forEach(track => track.stop());
+            }
+            video.style.display = "none";
+
+            // Replace with captured image
+            document.getElementById("image-container").innerHTML = "";
+            imageElement = new Image();
+            imageElement.src = canvas.toDataURL("image/png");
+            document.getElementById("image-container").appendChild(imageElement);
+        }
+
+        async function analyze() {
+    if (!imageElement) {
+        alert("Please capture an image first.");
+        return;
+    }
+
+    try {
+        const prediction = await model.predict(imageElement);
+
+        // Find the highest confidence prediction
+        let highestPrediction = prediction.reduce((max, p) => p.probability > max.probability ? p : max, prediction[0]);
+        const detectedItem = highestPrediction.className;
+
+        document.getElementById("label-container").innerText = "Identified: " + detectedItem;
+
+        // ✅ Estimate weight based on object type (example logic)
+        let weight = 0;
+        switch (detectedItem.toLowerCase()) {
+            case "bottle":
+                weight = 0.025;
+                break;
+            case "cup":
+                weight = 0.015;
+                break;
+            case "container":
+                weight = 0.035;
+                break;
+            default:
+                weight = 0.01;
+                break;
+        }
+
+        // ✅ Calculate points (example: ₹5 per 100g)
+        let points = weight * 100 * 5; // weight in kg * 1000 * ₹0.005
+        points = parseFloat(points.toFixed(2));
+
+        // ✅ Save to localStorage
+        localStorage.setItem("detectedItem", detectedItem);
+        localStorage.setItem("estimatedWeight", weight.toFixed(2));
+        localStorage.setItem("amount", points);
+
+        // ✅ Show Redeem button
+        document.getElementById("redeem-button").style.display = "block";
+
+    } catch (error) {
+        console.error("Error during analysis:", error);
+        alert("Error analyzing the image.");
+    }
+}
+
+
+        function goToRedeem() {
+            window.location.href = "redeems.html"; // Redirect to the Redeem page
+        }
+    </script>
+
+</body>
+</html>

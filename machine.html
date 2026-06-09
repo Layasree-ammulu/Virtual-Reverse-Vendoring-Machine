@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plastic Recycling Machine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('machinebgimg.jpg');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+            color: white;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .machine-container {
+            position: relative;
+            width: 30vw;
+            height: 70vh;
+            margin: auto;
+            top: 5vh;
+        }
+
+        .machine-image {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border-radius: 20px;
+        }
+
+        .plastic-btn {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1vw;
+            text-align: center;
+            width: 8vw;
+            height: 12vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .plastic-btn img {
+            width: 4vw;
+            height: 4vw;
+            margin-bottom: 5px;
+        }
+
+        #plasticCup { top: 13%; left: 21%; width: 5.9vw; height: 22vh; }
+        #petBottle { top: 45%; left: 21%; width: 6vw; height: 32vh; }
+        #hdpePlastic { top: 47%; left: 41.5%; width: 5.9vw; height: 30vh; }
+        #plasticBag { top: 45%; left: 62%; width: 5.8vw; height: 32vh; }
+
+        .rewards-container {
+            position: fixed;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        .rewards-display {
+            font-size: 2vw;
+            font-weight: bold;
+            background: rgba(12, 5, 0, 0.6);
+            padding: 4px;
+            border-radius: 10px;
+            display: inline-block;
+            width: 22vw;
+            margin-bottom: 10px;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .action-buttons button {
+            background: rgba(0, 0, 0, 0.8);
+            color: rgb(25, 241, 216);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.5vw;
+            padding: 10px 20px;
+            cursor: pointer;
+            width: 10vw;
+            height: 6vh;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .action-buttons button:hover {
+            background: rgba(17, 100, 225, 0.5);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="machine-container">
+        <img src="machine.jpg" class="machine-image" alt="Vending Machine">
+
+        <button id="plasticCup" class="plastic-btn" onclick="addPlastic(1, 1)">
+            <img src="cup.jpg" alt="Plastic Cup"> Plastic Bottle
+        </button>
+
+        <button id="petBottle" class="plastic-btn" onclick="addPlastic(2, 2)">
+            <img src="bottle.jpg" alt="PET Bottle"> PET Cup
+        </button>
+
+        <button id="hdpePlastic" class="plastic-btn" onclick="addPlastic(3, 3)">
+            <img src="hdpe.jpg" alt="HDPE Plastic"> HDPE Plastic
+        </button>
+
+        <button id="plasticBag" class="plastic-btn" onclick="addPlastic(1, 1)">
+            <img src="cover.jpg" alt="Plastic Bag"> Plastic Bag
+        </button>
+    </div>
+
+    <div class="rewards-container">
+        <div class="rewards-display" id="rewardDisplay">
+            Total Points: 0 
+        </div>
+        <div class="action-buttons">
+            <button onclick="navigateToScan()">Scan</button>
+            <button onclick="submitScore()">Score</button>
+        </div>
+    </div>
+
+    <form id="recycleForm" action="machine.jsp" method="POST">
+        <input type="hidden" name="username" value="testuser">
+        <input type="hidden" name="totalPoints" id="totalPoints">
+        <input type="hidden" name="totalWeight" id="totalWeight">
+    </form>
+
+    <script>
+        let totalPoints = 0;
+        let totalWeight = 0;
+
+        function addPlastic(points, weight) {
+            totalPoints += points;
+            totalWeight += weight;
+            document.getElementById('rewardDisplay').innerText = `Total Points: ${totalPoints}`;
+        }
+
+        function submitScore() {
+            if (totalPoints <= 0 || totalWeight <= 0) {
+                alert("Please add some plastic before submitting!");
+                return;
+            }
+
+            document.getElementById('totalPoints').value = totalPoints;
+            document.getElementById('totalWeight').value = totalWeight;
+
+            // Show popup with score
+            alert(`Your total score is ${totalPoints} points!`);
+
+            // Submit form data to store in database
+            document.getElementById('recycleForm').submit();
+
+            setTimeout(() => {
+                window.location.href = "leader.jsp";
+            }, 1000); // Delay to allow form submission
+        }
+
+        function navigateToScan() {
+            // Navigate to scan.html page
+            window.location.href = "scan.html";
+        }
+    </script>
+
+</body>
+</html>
